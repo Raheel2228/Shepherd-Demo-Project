@@ -1,8 +1,9 @@
 import React from "react";
 import "./App.css";
+import { SideBar } from "./commons/SideBar";
 
 function App() {
-  return <div className="App"></div>;
+  return <SideBar></SideBar>;
 }
 
 export default App;
