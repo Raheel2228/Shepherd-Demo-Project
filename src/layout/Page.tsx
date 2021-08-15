@@ -3,7 +3,7 @@ import DashboardLayout from "./DashboardLayout";
 import { PageHeader, PageWrapper } from "./styles";
 
 interface Props {
-  header?: string;
+  header?: React.ReactNode;
   children: React.ReactNode;
 }
 

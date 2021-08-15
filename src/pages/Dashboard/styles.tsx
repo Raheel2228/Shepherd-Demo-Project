@@ -13,7 +13,7 @@ export const CardTextArea = styled.textarea`
   font-family: Inter;
   font-style: normal;
   font-weight: normal;
-  font-size: 8px;
+  font-size: 9px;
   line-height: 10px;
   outline: none;
   padding: 16px;
@@ -36,4 +36,32 @@ export const CardTextAreaFoot = styled.div`
   text-align: center;
 
   color: #d85988;
+`;
+
+export const CardHeaderDropIcon = styled.img<{
+  flip: boolean;
+}>`
+  margin-left: 162px;
+  cursor: pointer;
+  -webkit-transform: ${(props) => (props.flip ? "" : "scaleY(-1)")};
+  transform: ${(props) => (props.flip ? "" : "scaleY(-1)")};
+  transition: 1s;
+`;
+export const SignOutButton = styled.button`
+  background-color: white;
+  border: none;
+  color: black;
+  padding: 5px 20px;
+  text-align: center;
+  font-size: 14px;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 16px;
+  font-weight: 700;
+  margin-left: auto;
+  &:hover {
+    background: rgba(234, 234, 234, 0.4);
+  }
 `;

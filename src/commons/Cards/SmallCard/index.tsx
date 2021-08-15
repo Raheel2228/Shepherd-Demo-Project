@@ -4,17 +4,25 @@ import { CardDivider, CardHeader, CardIcon, SmallCardWrapper } from "./styles";
 export interface IAppProps {
   areaName: string;
   icon: string;
-  header: string;
+  header: React.ReactNode;
   children?: React.ReactNode;
+  heightTrigger?: boolean;
 }
 
 export function SmallCard(props: IAppProps) {
   return (
-    <SmallCardWrapper gridArea={props.areaName}>
+    <SmallCardWrapper
+      changeHeight={props.heightTrigger}
+      gridArea={props.areaName}
+    >
       <CardIcon src={props.icon} />
       <CardHeader>{props.header}</CardHeader>
-      <CardDivider />
-      {props.children}
+      {props.heightTrigger && (
+        <>
+          <CardDivider />
+          {props.children}
+        </>
+      )}
     </SmallCardWrapper>
   );
 }

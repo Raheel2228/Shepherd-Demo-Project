@@ -8,6 +8,7 @@ export const ButtonWrapper = styled.button`
   padding: 10px 24px;
   margin-inline: 44px;
   margin-top: 16px;
+  margin-bottom: 20px;
   width: 198px;
   height: 44px;
 
@@ -16,7 +17,17 @@ export const ButtonWrapper = styled.button`
 
   border: 1px solid #e5e5e5;
   box-sizing: border-box;
+  transition: 0.3s;
   border-radius: 10px;
+  &:hover {
+    background: rgba(234, 234, 234, 0.4);
+    div {
+      color: #272727;
+    }
+    img {
+      color: #272727;
+    }
+  }
 `;
 
 export const ButtonText = styled.div`

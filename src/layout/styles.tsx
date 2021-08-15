@@ -6,10 +6,10 @@ export const MainWrapper = styled.div`
 `;
 
 export const ContentArea = styled.main`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  flex-grow: 1;
+  //   display: flex;
+  //   flex-direction: column;
+  //   justify-content: flex-start;
+  //   flex-grow: 1;
 `;
 
 export const PageWrapper = styled.section`
@@ -20,9 +20,9 @@ export const PageWrapper = styled.section`
   display: grid;
   margin-left: 24px;
   grid-gap: 24px;
-  grid-template-areas:
-    "small1 small2 small3 right"
-    "footer footer footer right";
+  grid-template-areas: "small1 small2 small3 right";
+  // "footer footer footer right";
+  grid-auto-columns: max-content;
 `;
 
 export const PageHeader = styled.section`
