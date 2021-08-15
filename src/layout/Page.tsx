@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import Dashboard from "./Dashboard";
+import DashboardLayout from "./DashboardLayout";
 import { PageHeader, PageWrapper } from "./styles";
 
 interface Props {
@@ -9,10 +9,10 @@ interface Props {
 
 const Page: FC<Props> = ({ header, children }) => {
   return (
-    <Dashboard>
+    <DashboardLayout>
       <PageHeader>{header}</PageHeader>
       <PageWrapper>{children}</PageWrapper>
-    </Dashboard>
+    </DashboardLayout>
   );
 };
 

@@ -5,7 +5,7 @@ import { ContentArea, MainWrapper } from "./styles";
 interface Props {
   children: React.ReactNode;
 }
-const Dashboard: FC<Props> = ({ children }) => {
+const DashboardLayout: FC<Props> = ({ children }) => {
   return (
     <MainWrapper>
       <SideBar />
@@ -14,4 +14,4 @@ const Dashboard: FC<Props> = ({ children }) => {
   );
 };
 
-export default Dashboard;
+export default DashboardLayout;
