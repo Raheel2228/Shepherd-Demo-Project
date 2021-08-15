@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const SmallCardWrapper = styled.div<{ gridArea: string }>`
-  margin-left: 24px;
   width: 293px;
   height: 346px;
 
@@ -38,7 +37,7 @@ export const CardHeader = styled.span`
 export const CardDivider = styled.hr`
   width: 100%;
   height: 0px;
-
+  margin: 5px 0px 0px 0px;
   /* Grey */
 
   border: 1px solid #eaeaea;

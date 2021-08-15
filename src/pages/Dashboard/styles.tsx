@@ -18,3 +18,22 @@ export const CardTextArea = styled.textarea`
   outline: none;
   padding: 16px;
 `;
+export const CardTextAreaFoot = styled.div`
+  width: 207px;
+  height: 10px;
+
+  margin-inline: 43px;
+  /* Paragraph */
+
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 8px;
+  line-height: 10px;
+  padding-top: 8px;
+  /* identical to box height */
+
+  text-align: center;
+
+  color: #d85988;
+`;

@@ -3,8 +3,7 @@ import styled from "styled-components";
 export const HorizontalCardWrapper = styled.div`
   width: 927px;
   height: 200px;
-  margin-left: 24px;
-  margin-top: 24px;
+
   /* White */
   grid-area: footer;
   background: #ffffff;

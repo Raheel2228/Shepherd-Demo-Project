@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
 export const LargeCardWrapper = styled.div`
-  margin-left: 24px;
-
   width: 369px;
   height: 570px;
 

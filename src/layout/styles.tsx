@@ -18,6 +18,8 @@ export const PageWrapper = styled.section`
   //   justify-content: flex-start;
   //   flex-grow: 1;
   display: grid;
+  margin-left: 24px;
+  grid-gap: 24px;
   grid-template-areas:
     "small1 small2 small3 right"
     "footer footer footer right";
