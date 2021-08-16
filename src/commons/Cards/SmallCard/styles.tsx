@@ -41,6 +41,7 @@ export const CardDivider = styled.hr`
   width: 100%;
   height: 0px;
   margin: 5px 0px 0px 0px;
+  background: #eaeaea;
   /* Grey */
 
   border: 1px solid #eaeaea;

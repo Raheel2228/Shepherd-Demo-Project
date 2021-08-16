@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { NavLink } from "react-router-dom";
 export const SideBarWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -26,8 +26,8 @@ export const SideBarLogo = styled.img`
 export const SideBarDivider = styled.hr`
   width: 40px;
   height: 0px;
-
-  border: 2px solid #e9e9eb;
+  background: #e9e9eb;
+  border: 1px solid #e9e9eb;
 `;
 
 export const SideBarAvatar = styled.img`
@@ -40,4 +40,37 @@ export const SideBarAvatar = styled.img`
   bottom: 30px;
   left: 12px;
   border: 4px solid #2ce3a0;
+`;
+export const NavIcon = styled.img`
+  margin: auto;
+`;
+export const NavIconWrapper = styled.div`
+  display: flex;
+  width: 52px;
+  height: 52px;
+  margin-left: 10px;
+  margin-top: 10px;
+  border-radius: 18px;
+  &:hover {
+    background: #eaeaea;
+  }
+  &:active {
+    background: #eaeaea;
+  }
+`;
+
+export const MyNavLink = styled(NavLink)`
+  &.active ${NavIconWrapper} {
+    background: #eaeaea;
+  }
+`;
+
+export const BottomDivider = styled.hr`
+  width: 40px;
+  height: 0px;
+  background: #e9e9eb;
+  position: absolute;
+  bottom: 90px;
+  left: 15px;
+  border: 1px solid #e9e9eb;
 `;

@@ -4,7 +4,7 @@ import { PageHeader, PageWrapper } from "./styles";
 
 interface Props {
   header?: React.ReactNode;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 const Page: FC<Props> = ({ header, children }) => {

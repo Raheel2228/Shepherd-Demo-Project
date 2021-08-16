@@ -8,7 +8,7 @@ export interface IAppProps {
   signInWithGoogle: Function;
 }
 
-export function SignIn(props: IAppProps) {
+export default function SignIn(props: IAppProps) {
   return (
     <SignInContainer>
       <SmallCard

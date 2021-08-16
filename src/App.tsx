@@ -1,8 +1,13 @@
 import React from "react";
 import "./App.css";
 import { getLocation } from "./helpers/services";
-import { Dashboard } from "./pages/Dashboard";
-
+import Dashboard from "./pages/Dashboard";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
@@ -12,8 +17,9 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { MyButton } from "./commons/Buttons";
 
-import { SignIn } from "./pages/Signin";
+import SignIn from "./pages/Signin";
 import { Spinner } from "./layout/styles";
+import SharedNotes from "./pages/Sharednotes";
 firebase.initializeApp({
   // my config
   apiKey: "AIzaSyC1M02vfL2lRn0u8XOVOXKQg0KXLQbzGqw",
@@ -26,15 +32,11 @@ firebase.initializeApp({
 });
 
 const auth = firebase.auth();
-const firestore = firebase.firestore();
-const analytics = firebase.analytics();
+
 function App() {
   const [user, loading] = useAuthState(auth);
-  const notesRef = firebase.firestore().collection("notes");
   const [myLocation, setMyLocation] = React.useState("");
-  const [myNotes, setMyNotes] = React.useState([]);
-  const [notesLoading, setNotesLoading] = React.useState(false);
-  const [notesAdding, setNotesAdding] = React.useState(false);
+
   React.useEffect(() => {
     getLocation().then((res) => {
       setMyLocation(`Country : ${res.data.country}
@@ -42,78 +44,56 @@ function App() {
 Continent : ${res.data.continent}`);
     });
   }, []);
-  React.useEffect(() => {
-    if (user) {
-      const { uid, photoURL } = user;
-      localStorage.setItem("photoUrl", photoURL);
-      //getting notes from firebase when logged in or refreshed
-      notesRef
-        .where("user_id", "==", uid)
-        .get()
-        .then((snapshot) => {
-          let userNote = snapshot.docs.map((doc) => {
-            doc.data().id = doc.id;
-            let obj = doc.data();
-            obj.id = doc.id;
-            return obj;
-          });
-          setMyNotes(userNote);
-          setNotesAdding(false);
-          setNotesLoading(true);
-        });
-    }
-  }, [user]);
-
   const signInWithGoogle = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(provider);
   };
-  //creating the new initial note
-  const createNotesFirstTime = (textToSend: string) => {
-    if (user && !notesAdding) {
-      setNotesAdding(true);
-      const { uid } = user;
-      notesRef
-        .add({
-          note_text: textToSend,
-          user_id: uid,
-        })
-        .then(function (docRef) {
-          setMyNotes([
-            {
-              user_id: uid,
-              note_text: textToSend,
-              id: docRef.id,
-            },
-          ]);
-          console.log("Tutorial created with ID: ", docRef.id);
-        })
-        .catch(function (error) {
-          console.error("Error adding notes", error);
-        });
-    }
-  };
+  const notesRef = firebase.firestore().collection("notes");
 
   return (
-    <>
-      {user ? (
-        notesLoading ? (
-          <Dashboard
-            createFirstTimeNote={(data: string) => createNotesFirstTime(data)}
-            fireBaseRef={notesRef}
-            myNotes={myNotes}
-            signOut={() => auth.signOut()}
-            myLocation={myLocation}
-          />
-        ) : (
-          <Spinner />
-        )
-      ) : loading ? (
-        <Spinner />
-      ) : (
-        <SignIn signInWithGoogle={signInWithGoogle} />
-      )}
-    </>
+    <Router>
+      <Switch>
+        {user && (
+          <>
+            <Route
+              path="/home"
+              exact={true}
+              component={() => (
+                <Dashboard
+                  user={user}
+                  fireBaseRef={notesRef}
+                  signOut={() => auth.signOut()}
+                  myLocation={myLocation}
+                />
+              )}
+            />
+            <Route
+              path="/shared_notes"
+              exact={true}
+              component={() => <SharedNotes />}
+            />
+          </>
+        )}
+
+        {!user && (
+          <>
+            <Route
+              path="/signin"
+              exact={true}
+              component={() =>
+                loading ? (
+                  <Spinner />
+                ) : (
+                  <SignIn signInWithGoogle={signInWithGoogle} />
+                )
+              }
+            />
+          </>
+        )}
+      </Switch>
+      {user && <Redirect to="/home" />}
+      {!user && <Redirect to="/signin" />}
+    </Router>
   );
 }
 

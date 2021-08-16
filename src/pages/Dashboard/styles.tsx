@@ -12,7 +12,7 @@ export const CardTextArea = styled.textarea`
   margin-inline: 27px;
   font-family: Inter;
   font-style: normal;
-  font-weight: normal;
+  font-weight: 600;
   font-size: 9px;
   line-height: 10px;
   outline: none;
