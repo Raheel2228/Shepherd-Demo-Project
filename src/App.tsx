@@ -18,13 +18,6 @@ import SharedNotes from "./pages/Sharednotes";
 import { Spinner } from "./layout/styles";
 firebase.initializeApp({
   // my config
-  apiKey: "AIzaSyC1M02vfL2lRn0u8XOVOXKQg0KXLQbzGqw",
-  authDomain: "shepherd-demo-project.firebaseapp.com",
-  projectId: "shepherd-demo-project",
-  storageBucket: "shepherd-demo-project.appspot.com",
-  messagingSenderId: "464344988672",
-  appId: "1:464344988672:web:e76ba2e161997cc7f7ace5",
-  measurementId: "G-49F9EK79P0",
 });
 
 const auth = firebase.auth();

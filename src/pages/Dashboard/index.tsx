@@ -28,7 +28,7 @@ import { Spinner } from "../../layout/styles";
 declare type $Unknown = any;
 export interface IAppProps {
   fireBaseRef: $Unknown;
-  user: { uid: string; photoURL: string };
+  user: $Unknown;
   myLocation?: string;
   signOut: Function;
 }
@@ -96,7 +96,7 @@ export default function Dashboard(props: IAppProps) {
   for (let i = 0; i < checkboxCount; i++) {
     checkboxes.push(
       <CheckBoxBody>
-        <CardCheckBox type="checkbox" />
+        <CardCheckBox key={i} type="checkbox" />
         Task {i + 1}
       </CheckBoxBody>
     );
