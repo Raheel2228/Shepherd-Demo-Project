@@ -44,7 +44,8 @@ Continent : ${res.data.continent}`);
   }, []);
   React.useEffect(() => {
     if (user) {
-      const { uid } = user;
+      const { uid, photoURL } = user;
+      localStorage.setItem("photoUrl", photoURL);
       //getting notes from firebase when logged in or refreshed
       notesRef
         .where("user_id", "==", uid)

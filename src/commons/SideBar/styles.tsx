@@ -5,7 +5,7 @@ export const SideBarWrapper = styled.div`
   flex-direction: column;
 
   width: 72px;
-  height: 712px;
+  height: calc(100vh);
 
   /* White */
 
@@ -28,4 +28,16 @@ export const SideBarDivider = styled.hr`
   height: 0px;
 
   border: 2px solid #e9e9eb;
+`;
+
+export const SideBarAvatar = styled.img`
+  vertical-align: middle;
+  width: 40px;
+  margin-inline: auto;
+  height: 40px;
+  position: absolute;
+  border-radius: 50%;
+  bottom: 30px;
+  left: 12px;
+  border: 4px solid #2ce3a0;
 `;

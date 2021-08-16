@@ -41,7 +41,7 @@ export const CardTextAreaFoot = styled.div`
 export const CardHeaderDropIcon = styled.img<{
   flip: boolean;
 }>`
-  margin-left: 162px;
+  margin-left: 145px;
   cursor: pointer;
   -webkit-transform: ${(props) => (props.flip ? "" : "scaleY(-1)")};
   transform: ${(props) => (props.flip ? "" : "scaleY(-1)")};
@@ -60,9 +60,35 @@ export const SignOutButton = styled.button`
   cursor: pointer;
   border-radius: 16px;
   font-weight: 700;
-  margin-left: auto;
+
+  position: absolute;
+  right: 10px;
   &:hover {
     background: #1b1464;
     color: white;
   }
+`;
+
+export const CardCheckBoxWrapper = styled.div`
+  margin-left: 24px;
+  margin-top: 24px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 8px;
+  line-height: 10px;
+  /* identical to box height */
+
+  /* Light Black */
+  // height: 54.8%;
+  height: 180px;
+  overflow: auto;
+  color: #272727;
+`;
+export const CardCheckBox = styled.input.attrs({ type: "checkbox" })`
+  margin-bottom: 16px;
+  margin-right: 14px;
+`;
+export const CheckBoxBody = styled.div`
+  width: 100%;
 `;

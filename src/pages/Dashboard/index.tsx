@@ -12,14 +12,19 @@ import Vector4 from "../../assets/Vector (4).svg";
 import Vector5 from "../../assets/Vector (5).svg";
 import Vector6 from "../../assets/Vector (6).svg";
 import Vector7 from "../../assets/Vector (7).svg";
+import Vector8 from "../../assets/Vector (8).svg";
 import {
+  CardCheckBox,
+  CardCheckBoxWrapper,
   CardHeaderDropIcon,
   CardTextArea,
   CardTextAreaFoot,
+  CheckBoxBody,
   SignOutButton,
 } from "./styles";
 import { MyButton } from "../../commons/Buttons";
 import { CollectionHook } from "react-firebase-hooks/firestore";
+import { ToolTip } from "../../commons/Tooltip";
 
 export interface IAppProps {
   fireBaseRef: CollectionHook;
@@ -31,6 +36,16 @@ export interface IAppProps {
 
 export function Dashboard(props: IAppProps) {
   const [accordian, setAccordian] = React.useState(true);
+  const [checkboxCount, setCheckboxCount] = React.useState(3);
+  let checkboxes = [];
+  for (let i = 0; i < checkboxCount; i++) {
+    checkboxes.push(
+      <CheckBoxBody>
+        <CardCheckBox type="checkbox" />
+        Task {i + 1}
+      </CheckBoxBody>
+    );
+  }
   return (
     <>
       <Page
@@ -50,6 +65,9 @@ export function Dashboard(props: IAppProps) {
           header={
             <>
               Agenda
+              <ToolTip toolTipText="help me">
+                <img src={Vector8} />
+              </ToolTip>
               <CardHeaderDropIcon
                 onClick={() => {
                   setAccordian(!accordian);
@@ -61,7 +79,16 @@ export function Dashboard(props: IAppProps) {
           }
         >
           {" "}
-          <MyButton buttonIcon={[Vector5, Vector6]}>Add Checkbox</MyButton>
+          <CardCheckBoxWrapper>{checkboxes}</CardCheckBoxWrapper>
+          <MyButton
+            onClick={() => {
+              checkboxCount;
+              setCheckboxCount(checkboxCount + 1);
+            }}
+            buttonIcon={[Vector5, Vector6]}
+          >
+            Add Checkbox
+          </MyButton>
         </SmallCard>
         <SmallCard
           icon={Vector1}
