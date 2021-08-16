@@ -19,10 +19,14 @@ import {
   SignOutButton,
 } from "./styles";
 import { MyButton } from "../../commons/Buttons";
+import { CollectionHook } from "react-firebase-hooks/firestore";
+
 export interface IAppProps {
+  fireBaseRef: CollectionHook;
+  createFirstTimeNote: Function;
   myLocation?: string;
   signOut: Function;
-  myNotes: Array<{ note_text: string }>;
+  myNotes: Array<{ note_text: string; user_id: string; id: string }>;
 }
 
 export function Dashboard(props: IAppProps) {
@@ -65,7 +69,22 @@ export function Dashboard(props: IAppProps) {
           areaName={"small2"}
           header={"Personal Notes"}
         >
-          <CardTextArea defaultValue={props.myNotes[0].note_text} />
+          <CardTextArea
+            //listening o the change in the notes text area
+            onChange={(e) => {
+              //see if the user has created notes already or not
+              if (props.myNotes[0]?.id) {
+                props.fireBaseRef.doc(props.myNotes[0].id).set({
+                  note_text: e.target.value,
+                  user_id: props.myNotes[0].user_id,
+                });
+              } else {
+                //if not so we create an initial note againt the uid of the user
+                props.createFirstTimeNote(e.target.value);
+              }
+            }}
+            defaultValue={props.myNotes[0]?.note_text}
+          />
 
           <MyButton buttonIcon={[Vector5, Vector6]}>Check Hover State</MyButton>
         </SmallCard>

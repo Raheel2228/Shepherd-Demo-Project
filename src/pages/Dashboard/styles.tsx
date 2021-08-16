@@ -62,6 +62,7 @@ export const SignOutButton = styled.button`
   font-weight: 700;
   margin-left: auto;
   &:hover {
-    background: rgba(234, 234, 234, 0.4);
+    background: #1b1464;
+    color: white;
   }
 `;
