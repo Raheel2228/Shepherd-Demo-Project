@@ -12,14 +12,10 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
 import "firebase/analytics";
-
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useCollectionData } from "react-firebase-hooks/firestore";
-import { MyButton } from "./commons/Buttons";
-
 import SignIn from "./pages/Signin";
-import { Spinner } from "./layout/styles";
 import SharedNotes from "./pages/Sharednotes";
+import { Spinner } from "./layout/styles";
 firebase.initializeApp({
   // my config
   apiKey: "AIzaSyC1M02vfL2lRn0u8XOVOXKQg0KXLQbzGqw",
@@ -38,12 +34,14 @@ function App() {
   const [myLocation, setMyLocation] = React.useState("");
 
   React.useEffect(() => {
+    //Get user location
     getLocation().then((res) => {
       setMyLocation(`Country : ${res.data.country}
 
 Continent : ${res.data.continent}`);
     });
   }, []);
+  //authentication using google auth to sign in
   const signInWithGoogle = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(provider);
@@ -53,6 +51,7 @@ Continent : ${res.data.continent}`);
   return (
     <Router>
       <Switch>
+        {/* only allow user to access the applicattion when he is logged using auth */}
         {user && (
           <>
             <Route
@@ -74,7 +73,7 @@ Continent : ${res.data.continent}`);
             />
           </>
         )}
-
+        {/* show sign in page whne not authenticated */}
         {!user && (
           <>
             <Route
@@ -91,6 +90,7 @@ Continent : ${res.data.continent}`);
           </>
         )}
       </Switch>
+      {/* redirect to routes upon signin changes */}
       {user && <Redirect to="/home" />}
       {!user && <Redirect to="/signin" />}
     </Router>

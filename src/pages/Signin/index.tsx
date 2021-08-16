@@ -9,6 +9,7 @@ export interface IAppProps {
 }
 
 export default function SignIn(props: IAppProps) {
+  const { signInWithGoogle } = props;
   return (
     <SignInContainer>
       <SmallCard
@@ -19,7 +20,7 @@ export default function SignIn(props: IAppProps) {
       >
         <MyButton
           buttonIcon={[GoogleIcon, GoogleIcon]}
-          onClick={() => props.signInWithGoogle()}
+          onClick={() => signInWithGoogle()}
         >
           Sign in with Google
         </MyButton>

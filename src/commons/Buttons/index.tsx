@@ -8,10 +8,11 @@ export interface IAppProps {
 }
 
 export function MyButton(props: IAppProps) {
+  const { onClick, buttonIcon, children } = props;
   const [buttonHover, setButtonHover] = React.useState(false);
   return (
     <ButtonWrapper
-      onClick={() => props.onClick && props.onClick()}
+      onClick={() => onClick && onClick()}
       onMouseEnter={() => {
         setButtonHover(true);
       }}
@@ -20,12 +21,9 @@ export function MyButton(props: IAppProps) {
       }}
     >
       <ButtonIcon
-        src={
-          props.buttonIcon &&
-          (buttonHover ? props.buttonIcon[1] : props.buttonIcon[0])
-        }
+        src={buttonIcon && (buttonHover ? buttonIcon[1] : buttonIcon[0])}
       />
-      <ButtonText>{props.children}</ButtonText>
+      <ButtonText>{children}</ButtonText>
     </ButtonWrapper>
   );
 }

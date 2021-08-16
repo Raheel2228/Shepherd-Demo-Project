@@ -32,7 +32,7 @@ export function SideBar(props: IAppProps) {
 
       <BottomDivider />
 
-      <SideBarAvatar src={localStorage.getItem("photoUrl")} />
+      <SideBarAvatar src={`${localStorage.getItem("photoUrl")}`} />
     </SideBarWrapper>
   );
 }

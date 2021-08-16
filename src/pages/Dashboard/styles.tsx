@@ -81,7 +81,7 @@ export const CardCheckBoxWrapper = styled.div`
 
   /* Light Black */
   // height: 54.8%;
-  height: 180px;
+  height: 198px;
   overflow: auto;
   color: #272727;
 `;

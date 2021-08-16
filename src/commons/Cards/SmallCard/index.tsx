@@ -10,17 +10,15 @@ export interface IAppProps {
 }
 
 export function SmallCard(props: IAppProps) {
+  const { areaName, icon, header, children, heightTrigger } = props;
   return (
-    <SmallCardWrapper
-      changeHeight={props.heightTrigger}
-      gridArea={props.areaName}
-    >
-      <CardIcon src={props.icon} />
-      <CardHeader>{props.header}</CardHeader>
-      {props.heightTrigger && (
+    <SmallCardWrapper changeHeight={heightTrigger} gridArea={areaName}>
+      <CardIcon src={icon} />
+      <CardHeader>{header}</CardHeader>
+      {heightTrigger && (
         <>
           <CardDivider />
-          {props.children}
+          {children}
         </>
       )}
     </SmallCardWrapper>

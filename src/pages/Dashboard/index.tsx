@@ -23,31 +23,33 @@ import {
   SignOutButton,
 } from "./styles";
 import { MyButton } from "../../commons/Buttons";
-import { CollectionHook } from "react-firebase-hooks/firestore";
 import { ToolTip } from "../../commons/Tooltip";
 import { Spinner } from "../../layout/styles";
-
+declare type $Unknown = any;
 export interface IAppProps {
-  fireBaseRef: CollectionHook;
-  user: object;
+  fireBaseRef: $Unknown;
+  user: { uid: string; photoURL: string };
   myLocation?: string;
   signOut: Function;
 }
 
 export default function Dashboard(props: IAppProps) {
-  const [myNotes, setMyNotes] = React.useState([]);
+  const { fireBaseRef, user, myLocation, signOut } = props;
+  const [myNotes, setMyNotes] = React.useState<
+    Array<{ id: string; user_id: string; note_text: string }>
+  >([]);
   const [notesLoading, setNotesLoading] = React.useState(false);
   const [notesAdding, setNotesAdding] = React.useState(false);
   React.useEffect(() => {
-    if (props.user) {
-      const { uid, photoURL } = props.user;
+    if (user) {
+      const { uid, photoURL } = user;
       localStorage.setItem("photoUrl", photoURL);
       //getting notes from firebase when logged in or refreshed
-      props.fireBaseRef
+      fireBaseRef
         .where("user_id", "==", uid)
         .get()
-        .then((snapshot) => {
-          let userNote = snapshot.docs.map((doc) => {
+        .then((snapshot: { docs: Array<any> }) => {
+          let userNote = snapshot.docs.map((doc: $Unknown) => {
             doc.data().id = doc.id;
             let obj = doc.data();
             obj.id = doc.id;
@@ -58,19 +60,20 @@ export default function Dashboard(props: IAppProps) {
           setNotesLoading(true);
         });
     }
-  }, [props.user]);
+  }, [user]);
 
   //creating the new initial note
   const createNotesFirstTime = (textToSend: string) => {
-    if (props.user && !notesAdding) {
+    if (user && !notesAdding) {
       setNotesAdding(true);
-      const { uid } = props.user;
-      props.fireBaseRef
+      const { uid } = user;
+      fireBaseRef
         .add({
           note_text: textToSend,
           user_id: uid,
         })
-        .then(function (docRef) {
+        .then(function (docRef: $Unknown) {
+          debugger;
           setMyNotes([
             {
               user_id: uid,
@@ -80,12 +83,14 @@ export default function Dashboard(props: IAppProps) {
           ]);
           console.log("Tutorial created with ID: ", docRef.id);
         })
-        .catch(function (error) {
+        .catch(function (error: Error) {
           console.error("Error adding notes", error);
         });
     }
   };
+  // accordian open/close state
   const [accordian, setAccordian] = React.useState(true);
+  //number of checkboxes added
   const [checkboxCount, setCheckboxCount] = React.useState(3);
   let checkboxes = [];
   for (let i = 0; i < checkboxCount; i++) {
@@ -98,17 +103,17 @@ export default function Dashboard(props: IAppProps) {
   }
   return (
     <>
+      {/* wait for notes to come and show spinning */}
       {notesLoading ? (
         <Page
           header={
             <>
               Dasboard
-              <SignOutButton onClick={() => props.signOut()}>
-                Sign Out
-              </SignOutButton>
+              <SignOutButton onClick={() => signOut()}>Sign Out</SignOutButton>
             </>
           }
         >
+          {/* agenda card */}
           <SmallCard
             icon={Vector}
             heightTrigger={accordian}
@@ -141,6 +146,7 @@ export default function Dashboard(props: IAppProps) {
               Add Checkbox
             </MyButton>
           </SmallCard>
+          {/* personal notes card */}
           <SmallCard
             icon={Vector1}
             heightTrigger={true}
@@ -152,7 +158,7 @@ export default function Dashboard(props: IAppProps) {
               onChange={(e) => {
                 //see if the user has created notes already or not
                 if (myNotes[0]?.id) {
-                  props.fireBaseRef.doc(myNotes[0].id).set({
+                  fireBaseRef.doc(myNotes[0].id).set({
                     note_text: e.target.value,
                     user_id: myNotes[0].user_id,
                   });
@@ -163,24 +169,22 @@ export default function Dashboard(props: IAppProps) {
               }}
               defaultValue={myNotes[0]?.note_text}
             />
+            <CardTextAreaFoot>Max 500 characters</CardTextAreaFoot>
 
             <MyButton buttonIcon={[Vector5, Vector6]}>
               Check Hover State
             </MyButton>
           </SmallCard>
+          {/* location card */}
           <SmallCard
             heightTrigger={true}
             icon={Vector2}
             areaName={"small3"}
             header={"Your Location"}
           >
-            <CardTextArea disabled value={props.myLocation} />
-            {/* <CardTextAreaFoot>Max 500 characters</CardTextAreaFoot> */}
-            {/* <MyButton buttonIcon={[Vector5, Vector6]}>
-            Fixed Width Button
-          </MyButton> */}
+            <CardTextArea disabled value={myLocation} />
           </SmallCard>
-
+          {/* empty components as shown in the UI but commented them as they were useless */}
           {/* <LargeCard icon={Vector3} header={"Action Points"} />
         <HorizontalCard icon={Vector4} header={"Action Points"} /> */}
         </Page>

@@ -8,10 +8,11 @@ export interface IAppProps {
 }
 
 export function HorizontalCard(props: IAppProps) {
+  const { icon, header } = props;
   return (
     <HorizontalCardWrapper>
-      <CardIcon src={props.icon} />
-      <CardHeader>{props.header}</CardHeader>
+      <CardIcon src={icon} />
+      <CardHeader>{header}</CardHeader>
       <CardDivider />
     </HorizontalCardWrapper>
   );
