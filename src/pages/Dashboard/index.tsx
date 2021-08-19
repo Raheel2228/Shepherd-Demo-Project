@@ -121,7 +121,7 @@ export default function Dashboard(props: IAppProps) {
             header={
               <>
                 Agenda
-                <ToolTip toolTipText="help me">
+                <ToolTip toolTipText="Please add your notes in the Personal Notes Box and they will be saved automatically. You can also add checkboxes below using the add button.">
                   <img src={Vector8} />
                 </ToolTip>
                 <CardHeaderDropIcon
@@ -154,6 +154,7 @@ export default function Dashboard(props: IAppProps) {
             header={"Personal Notes"}
           >
             <CardTextArea
+              maxLength={500}
               //listening o the change in the notes text area
               onChange={(e) => {
                 //see if the user has created notes already or not
